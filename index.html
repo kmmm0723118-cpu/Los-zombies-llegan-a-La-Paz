@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Altiplano Z: sobrevive con historia de Bolivia</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Work+Sans:wght@400;600&display=swap">
+<style>
+:root{--bg:#efe6d2;--ink:#241a2b;--card:#fbf6e9;--mag:#b3124f;--oca:#b87a00;--tea:#13796b;--mut:#6b5d70;--line:#241a2b;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a1420;--ink:#efe6d2;--card:#261c2e;--mag:#ff4f8b;--oca:#f0b429;--tea:#3fd0b8;--mut:#a899ad;--line:#efe6d2;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1a1420;--ink:#efe6d2;--card:#261c2e;--mag:#ff4f8b;--oca:#f0b429;--tea:#3fd0b8;--mut:#a899ad;--line:#efe6d2;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 "Work Sans",system-ui,sans-serif}
+.band{height:14px;background:repeating-linear-gradient(90deg,var(--mag) 0 28px,var(--oca) 28px 56px,var(--tea) 56px 84px,var(--ink) 84px 112px)}
+main{max-width:720px;margin:0 auto;padding:20px 16px 48px}
+h1{font:400 clamp(2.4rem,9vw,4rem)/1 "Alfa Slab One",Georgia,serif;margin:12px 0 8px;letter-spacing:.5px}
+h2{font:400 1.5rem/1.2 "Alfa Slab One",Georgia,serif;margin:0 0 12px}
+.lead{color:var(--mut);max-width:60ch}
+.hud{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.hud div{border:2px solid var(--line);background:var(--card);padding:8px 10px;border-radius:4px}
+.hud small{display:block;color:var(--mut);font-size:.8rem}
+.bar{height:10px;background:var(--bg);border:1px solid var(--line);margin-top:4px}
+.bar i{display:block;height:100%;background:var(--tea);transition:width .4s,background .4s}
+.card{border:2px solid var(--line);background:var(--card);padding:20px;border-radius:4px;box-shadow:6px 6px 0 var(--mag)}
+.loc{color:var(--mag);font-weight:600;margin:0 0 6px}
+.q{font-size:1.2rem;font-weight:600;margin:0 0 16px}
+.opts{display:grid;gap:10px}
+button{font:inherit;color:var(--ink);background:var(--bg);border:2px solid var(--line);padding:12px 14px;border-radius:4px;text-align:left;cursor:pointer}
+button:hover:not(:disabled){background:var(--oca);color:#241a2b}
+button:focus-visible{outline:3px solid var(--tea);outline-offset:2px}
+button.go{background:var(--mag);color:#fff;border-color:var(--mag);text-align:center;font-weight:600;margin-top:16px}
+button.go:hover{background:var(--ink);color:var(--bg)}
+button.ok{background:var(--tea);color:#fff}
+button.bad{background:var(--mag);color:#fff}
+.reward{border-left:6px solid var(--oca);padding:6px 12px;margin:14px 0;background:var(--bg)}
+.inv{margin-top:18px;font-size:.95rem;color:var(--mut)}
+.inv b{color:var(--ink)}
+.eat{margin-top:12px;font-size:.95rem;padding:8px 12px}
+.hit{animation:sh .35s}
+@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@media (prefers-reduced-motion:reduce){.hit{animation:none}.bar i{transition:none}}
+.scene{position:fixed;inset:0;width:100%;height:100%;z-index:-1}
+.zz{transform-box:fill-box;transform-origin:50% 100%;animation:sw 2.4s ease-in-out infinite alternate}
+@keyframes sw{to{transform:rotate(4deg) translateX(3px)}}
+h1{color:#efe6d2;text-shadow:3px 3px 0 #b3124f,0 0 18px #000}
+.band{position:relative;z-index:1}
+.opts button{background:#1b5fa8;color:#fff;border:3px solid #fff;box-shadow:0 0 0 2px #0e3a6b,3px 3px 0 #0006;font-weight:600}
+.opts button small{display:block;font-size:.72rem;font-weight:400;opacity:.85;border-bottom:1px solid #fff6;margin-bottom:4px;padding-bottom:2px}
+.opts button:hover:not(:disabled){background:#f0b429;color:#241a2b}
+.opts button.ok{background:#13796b;color:#fff}
+.opts button.bad{background:#b3124f;color:#fff}
+@media (prefers-reduced-motion:reduce){.zz{animation:none}}
+</style>
+</head>
+<body>
+<svg class="scene" viewBox="0 0 800 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a1038"/><stop offset=".6" stop-color="#8a2a5c"/><stop offset="1" stop-color="#f08a3c"/></linearGradient>
+<symbol id="z" viewBox="0 0 40 90"><circle cx="20" cy="9" r="8" fill="#8fae78"/><circle cx="17" cy="8" r="1.6" fill="#e01a1a"/><circle cx="23" cy="8" r="1.6" fill="#e01a1a"/><rect x="16" y="13" width="8" height="1.6" fill="#2a1a2a"/><path d="M11 18h18l2 30H9z" fill="#5b3d6b"/><rect x="26" y="20" width="13" height="5" rx="2" fill="#8fae78"/><rect x="1" y="22" width="13" height="5" rx="2" fill="#8fae78"/><rect x="12" y="48" width="7" height="38" fill="#33284a"/><rect x="21" y="48" width="7" height="34" fill="#33284a"/><path d="M14 26h6v6h-6z" fill="#a01030"/></symbol>
+</defs>
+<rect width="800" height="600" fill="url(#sky)"/>
+<circle cx="620" cy="90" r="34" fill="#f4e8c8"/>
+<path d="M180 300L400 110L620 300z" fill="#3b2a5a"/><path d="M400 110L350 165L385 150L410 175L440 150z" fill="#f4f0ff"/>
+<path d="M0 190L360 300V600H0z" fill="#3a2a3f"/><path d="M800 190L440 300V600H800z" fill="#3a2a3f"/>
+<g id="hl"></g>
+<polygon points="360,300 440,300 800,600 0,600" fill="#3b3540"/>
+<path d="M400 305L400 330M400 345L400 385M400 410L400 480M400 515L400 600" stroke="#f0b429" stroke-width="5"/>
+<line x1="0" y1="120" x2="800" y2="200" stroke="#e01a4a" stroke-width="2"/><rect x="392" y="162" width="18" height="13" rx="2" fill="#e01a4a"/>
+<g id="zs"></g>
+<rect width="800" height="600" fill="#10061c" opacity=".25"/>
+</svg>
+<div class="band"></div>
+<main>
+  <h1>Altiplano Z</h1>
+  <p style="margin:0 0 12px;font-weight:600;color:var(--mag);letter-spacing:.5px">Creado por Camila</p>
+  <div id="hud" class="hud" hidden></div>
+  <div id="app"></div>
+</main>
+<script>
+const Q=[
+{l:"La Paz, 1809",q:"¿Quién lideró la revolución del 16 de julio de 1809 en La Paz?",o:["Pedro Domingo Murillo","Simón Bolívar","Manuel Belgrano","José Miguel Lanza"],e:"Pedro Domingo Murillo encabezó la Junta Tuitiva, uno de los primeros gritos libertarios de América."},
+{l:"Sucre, 1825",q:"¿En qué año se declaró la independencia de Bolivia?",o:["1825","1809","1879","1899"],e:"El 6 de agosto de 1825 se firmó el Acta de Independencia en Chuquisaca."},
+{l:"Altiplano, Tiwanaku",q:"¿Cuál es el monumento más famoso de Tiwanaku?",o:["La Puerta del Sol","La Puerta de Alcalá","Machu Picchu","El Fuerte de Samaipata"],e:"La Puerta del Sol es un monolito tallado de la cultura Tiwanaku."},
+{l:"Potosí, Cerro Rico",q:"¿Qué mineral hizo famoso al Cerro Rico de Potosí en la época colonial?",o:["Plata","Oro","Estaño","Litio"],e:"La plata de Potosí financió buena parte del imperio español."},
+{l:"La Paz, 1781",q:"¿Qué líder indígena cercó la ciudad de La Paz en 1781?",o:["Túpac Katari","Bartolina Sisa","Zárate Willka","Ollanta"],e:"Túpac Katari y Bartolina Sisa sitiaron La Paz durante meses en 1781."},
+{l:"Costa del Pacífico, 1879",q:"¿Con qué país perdió Bolivia su litoral en la Guerra del Pacífico?",o:["Chile","Perú","Paraguay","Brasil"],e:"La guerra de 1879 a 1884 terminó con la pérdida del acceso soberano al mar."},
+{l:"El Chaco, 1932",q:"¿Contra qué país luchó Bolivia en la Guerra del Chaco?",o:["Paraguay","Argentina","Chile","Uruguay"],e:"La guerra del Chaco enfrentó a Bolivia y Paraguay entre 1932 y 1935."},
+{l:"Valles, 1841",q:"¿Qué batalla de 1841 aseguró la soberanía boliviana frente al Perú?",o:["Ingavi","Ayacucho","Tarapacá","Boquerón"],e:"En Ingavi, el presidente José Ballivián derrotó a las fuerzas peruanas."},
+{l:"Minas de estaño, 1952",q:"¿Qué ocurrió en Bolivia con las grandes minas de estaño en 1952?",o:["Fueron nacionalizadas","Fueron cerradas","Se vendieron a Chile","Se entregaron a España"],e:"La Revolución Nacional nacionalizó las minas e instauró el voto universal."},
+{l:"Ñancahuazú, 1967",q:"¿En qué año fue capturado el Che Guevara en Bolivia?",o:["1967","1952","1982","1932"],e:"El Che fue capturado en la Quebrada del Yuro, cerca de La Higuera, en 1967."},
+{l:"Cochabamba, 2000",q:"¿Cómo se conoce la protesta de 2000 contra la privatización del servicio de agua?",o:["Guerra del Agua","Guerra del Gas","Guerra del Chaco","Guerra del Pacífico"],e:"La Guerra del Agua en Cochabamba logró revertir el contrato de privatización."},
+{l:"La Paz, 2009",q:"¿En qué año nació el Estado Plurinacional de Bolivia con la nueva Constitución?",o:["2009","1994","2000","1967"],e:"La Constitución de 2009 refundó el país como Estado Plurinacional."}
+];
+const W=[["Honda aymara",1],["Macana de Katari",2],["Machete del Chaco",2],["Fusil Mauser",3],["Dinamita minera",3],["Boleadoras del Chaco",2]];
+const R=["Chuño y charque","Api con pastel","Salteña caliente","Sándwich de chola","Quinua pop","Mate de coca"];
+const WAVES={2:3,5:5,8:7,11:9};
+let S,app=document.getElementById("app"),hud=document.getElementById("hud");
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const power=()=>S.w.reduce((t,x)=>t+x[1],0);
+function renderHud(){
+  hud.hidden=false;
+  const c=S.hp>60?"var(--tea)":S.hp>30?"var(--oca)":"var(--mag)";
+  hud.innerHTML=`<div><small>Salud</small><b>${S.hp}/100</b><div class="bar"><i style="width:${S.hp}%;background:${c}"></i></div></div>
+  <div><small>Raciones</small><b>${S.r}</b></div><div><small>Poder de armas</small><b>${power()}</b></div>`;
+}
+function start(){
+  S={hp:100,r:1,w:[],i:0,order:sh(Q)};
+  hud.hidden=true;
+  app.innerHTML=`<p class="lead">Un virus despertó a los muertos en las calles de La Paz. Para sobrevivir tienes que cruzar la historia de Bolivia: cada respuesta correcta te da un arma o una ración. Cada respuesta incorrecta te cuesta 20 de salud. Cada tres preguntas llega una horda.</p>
+  <div class="card"><h2>Tu refugio te espera</h2><p>4 niveles de 3 preguntas, y cada nivel termina con una horda. Al superar un nivel recibes un mensaje de ánimo y un bonus. Reúne armas suficientes para que no te muerdan y guarda raciones para curarte.</p><button class="go" onclick="ask()">Empezar la huida</button></div>`;
+}
+function eatBtn(){return S.r>0&&S.hp<100?`<button class="eat" onclick="eat()">Comer una ración (+20 de salud)</button>`:""}
+function eat(){S.r--;S.hp=Math.min(100,S.hp+20);renderHud();(S.last||ask)();}
+function ask(){
+  S.last=ask;renderHud();
+  const q=S.order[S.i];
+  const ST=["Av. 16 de Julio","Calle Sagárnaga","Av. Arce","Calle Jaén"];
+  const opts=sh(q.o.map((t,k)=>({t,ok:k===0}))).map((o,k)=>({...o,s:ST[k]}));
+  S.cur={q,opts};
+  app.innerHTML=`<div class="card"><p class="loc">Nivel ${Math.floor(S.i/3)+1} de 4 · ${q.l} · Pregunta ${S.i+1} de ${Q.length}</p><p class="q">${q.q}</p>
+  <div class="opts">${opts.map((o,k)=>`<button onclick="answer(${k})"><small>${o.s}</small>${o.t}</button>`).join("")}</div>${eatBtn()}</div>`;
+}
+function answer(k){
+  const {q,opts}=S.cur,ok=opts[k].ok;let reward="";
+  if(ok){
+    if(Math.random()<.55){const w=pick(W);S.w.push(w);reward=`Arma obtenida: <b>${w[0]}</b> (+${w[1]} de poder)`}
+    else{S.r++;reward=`Ración obtenida: <b>${pick(R)}</b>`}
+  }else{S.hp=Math.max(0,S.hp-20)}
+  renderHud();
+  const html=`<div class="card ${ok?"":"hit"}"><p class="loc">${ok?"¡Correcto!":"¡Incorrecto! Un zombi te muerde (-20 de salud)."}</p><p class="q">${q.q}</p>
+  <div class="opts">${opts.map(o=>`<button disabled class="${o.ok?"ok":(o===opts[k]?"bad":"")}"><small>${o.s}</small>${o.t}</button>`).join("")}</div>
+  <p>${q.e}</p>${reward?`<div class="reward">${reward}</div>`:""}
+  <button class="go" onclick="next()">Continuar</button></div>`;
+  app.innerHTML=html;
+}
+function next(){
+  if(S.hp<=0)return end(false);
+  if(WAVES[S.i]!==undefined)return wave(WAVES[S.i]);
+  S.i++;S.i>=Q.length?end(true):ask();
+}
+function wave(str){
+  const miss=Math.max(0,str-power()),dmg=miss*6;
+  let hunger="";
+  if(S.r>0){S.r--;hunger="Consumes una ración para aguantar el hambre."}else{S.hp=Math.max(0,S.hp-15);hunger="No tienes raciones: el hambre te quita 15 de salud."}
+  S.hp=Math.max(0,S.hp-dmg);renderHud();
+  app.innerHTML=`<div class="card ${dmg?"hit":""}"><h2>¡Llegó una horda!</h2>
+  <p>Fuerza de la horda: <b>${str}</b>. Tu poder: <b>${power()}</b>.</p>
+  <p>${dmg?`Te faltaron ${miss} puntos de poder y los zombis te hirieron: -${dmg} de salud.`:"Tus armas los frenaron sin que te toquen."}</p><p>${hunger}</p>
+  <button class="go" onclick="afterWave()">Seguir avanzando</button></div>`;
+}
+const LV=[["El despertar","¡Nivel 1 superado! Igual que los patriotas de 1809, no te rendiste ante el peligro. Cada respuesta te acerca más al refugio."],["La resistencia","¡Nivel 2 superado! Con la tenacidad de los mineros de Potosí y el valor de Túpac Katari sigues en pie. ¡Ya vas por la mitad del camino!"],["La gran marcha","¡Nivel 3 superado! Resistes como los soldados del Chaco: sin rendirte nunca. Solo queda un nivel para llegar al refugio."]];
+function afterWave(){
+  if(S.hp<=0)return end(false);
+  if(S.i>=Q.length-1)return end(true);
+  const n=Math.floor(S.i/3);
+  S.hp=Math.min(100,S.hp+10);S.r++;renderHud();
+  app.innerHTML=`<div class="card"><p class="loc">Nivel ${n+1} de 4 completado</p><h2>${LV[n][0]}</h2><p>${LV[n][1]}</p><div class="reward">Bonus de nivel: +10 de salud y +1 ración</div><button class="go" onclick="S.i++;ask()">Empezar el nivel ${n+2}</button></div>`;
+}
+function end(win){
+  renderHud();
+  app.innerHTML=`<div class="card"><h2>${win?"Sobreviviste":"Te convertiste en zombi"}</h2>
+  <p>${win?`¡Completaste los 4 niveles! Llegaste al refugio con ${S.hp} de salud, ${S.w.length} armas y ${S.r} raciones. Conoces la historia de Bolivia mejor que cualquier horda.`:"Los zombis te alcanzaron. Repasa la historia de Bolivia y vuelve a intentarlo."}</p>
+  <button class="go" onclick="start()">Jugar de nuevo</button></div>`;
+}
+(function(){
+const NS="http://www.w3.org/2000/svg";let s=7;const r=()=>(s=(s*9301+49297)%233280)/233280;
+const edge=y=>y<300?360:360-260*((y-300)/300);
+const cols=["#c4572e","#d99a2b","#2f8f83","#b3376b","#8a5a44","#e0c9a0","#5a6fb0"];
+const hs=[];
+for(let n=0;n<160&&hs.length<70;n++){const w=26+r()*26,h=28+r()*34,y=215+r()*210,b=y+h,x=r()*340;
+ if(x+w>edge(b)-6||y<190+x*.32)continue;hs.push({x,y,w,h,b,c:cols[Math.floor(r()*cols.length)],m:hs.length%2})}
+hs.sort((a,c)=>a.b-c.b);
+let g="";
+for(const o of hs){const x=o.m?800-o.x-o.w:o.x;
+ g+=`<rect x="${x}" y="${o.y}" width="${o.w}" height="${o.h}" fill="${o.c}"/><rect x="${x}" y="${o.y}" width="${o.w}" height="4" fill="#0004"/><rect x="${x+5}" y="${o.y+10}" width="7" height="8" fill="#f8d66a"/><rect x="${x+o.w-12}" y="${o.y+10}" width="7" height="8" fill="#2a1a3a"/>`}
+document.getElementById("hl").innerHTML=g;
+let z="",i=0;
+for(const y of [330,350,390,440,520,590,470,370]){const h=24+(y-300)*.5,w=h*.44,a=edge(y)+14,b=800-edge(y)-14-w,x=a+r()*Math.max(0,b-a);
+ z+=`<use class="zz" href="#z" x="${x}" y="${y-h}" width="${w}" height="${h}" style="animation-delay:-${(i++*.6).toFixed(1)}s"/>`}
+document.getElementById("zs").innerHTML=z;
+})();
+start();
+</script>
+</body>
+</html>
